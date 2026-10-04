@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
+  <!-- Rounded red square icon -->
+  <rect width="120" height="120" rx="28" fill="#EA1D2C"/>
+  <g transform="translate(18, 22) scale(0.7)">
+    <!-- Motion lines -->
+    <path d="M10 50 H30 M4 62 H25 M12 74 H28" stroke="#FFFFFF" stroke-width="4.5" stroke-linecap="round"/>
+    <!-- Scooter Body & Wheels -->
+    <circle cx="48" cy="85" r="14" stroke="#FFFFFF" stroke-width="5" fill="none"/>
+    <circle cx="95" cy="85" r="14" stroke="#FFFFFF" stroke-width="5" fill="none"/>
+    <!-- Scooter frame -->
+    <path d="M48 85 L65 85 L78 68 L95 85" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M78 68 L85 45 L95 45" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- Food Cloche (Dome & Handle) -->
+    <path d="M42 62 C42 42 56 26 74 26 C92 26 106 42 106 62 Z" fill="#FFFFFF"/>
+    <!-- Cloche handle ball -->
+    <circle cx="74" cy="22" r="5.5" fill="#FFFFFF"/>
+    <!-- Cloche platter base -->
+    <rect x="36" y="62" width="76" height="5.5" rx="2.5" fill="#FFFFFF"/>
+  </g>
+</svg>

@@ -1,0 +1,85 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 11% 11%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 0 11% 11%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 11% 11%;
+
+    --primary: 356 82% 51%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 0 0% 92%;
+    --secondary-foreground: 0 11% 11%;
+
+    --muted: 0 0% 98%;
+    --muted-foreground: 0 3% 35%;
+
+    --accent: 356 82% 96%;
+    --accent-foreground: 356 82% 51%;
+
+    --destructive: 356 77% 41%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 0 3% 87%;
+    --input: 0 3% 87%;
+    --ring: 356 82% 51%;
+
+    --radius: 1rem;
+  }
+
+  * {
+    @apply border-gray-200;
+    box-sizing: border-box;
+  }
+
+  body {
+    @apply bg-gray-100 text-gray-600 font-sans antialiased;
+    min-height: 100vh;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  #root {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #E0DCDC;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #5C5656;
+}
+
+/* Glassmorphism gradient utilities */
+.white-gradient-card {
+  background: linear-gradient(163deg, #FFF 12.36%, rgba(255, 255, 255, 0.60) 32.02%, rgba(255, 255, 255, 0.25) 38.89%, rgba(255, 255, 255, 0.08) 51.76%, rgba(255, 255, 255, 0.60) 58.23%, rgba(255, 255, 255, 0.80) 77.89%);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.bottom-tabbar-blur {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
