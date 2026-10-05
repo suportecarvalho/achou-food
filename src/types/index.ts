@@ -67,5 +67,6 @@ export interface Order {
   customerName: string
   customerPhone: string
   createdAt: string
+  note?: string
   items: OrderItem[]
 }
