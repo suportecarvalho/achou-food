@@ -111,9 +111,9 @@ export const RestaurantMap: React.FC<RestaurantMapProps> = ({
       const userEl = document.createElement('div')
       userEl.className = 'user-location-marker relative flex items-center justify-center'
       userEl.innerHTML = `
-        <span class="animate-ping absolute inline-flex h-8 w-8 rounded-full bg-[#EA1D2C] opacity-30"></span>
+        <span class="animate-ping absolute inline-flex h-8 w-8 rounded-full bg-[#8F141F] opacity-30"></span>
         <span class="relative inline-flex rounded-full h-4 w-4 bg-white shadow-md items-center justify-center border border-white">
-          <span class="h-2.5 w-2.5 rounded-full bg-[#EA1D2C]"></span>
+          <span class="h-2.5 w-2.5 rounded-full bg-[#8F141F]"></span>
         </span>
       `
       new MapEngine.Marker({ element: userEl, anchor: 'center' })

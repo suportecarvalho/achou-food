@@ -12,9 +12,9 @@ export default {
       },
       colors: {
         // Design System - Brand
-        'red-base': '#EA1D2C',
-        'red-dark': '#B81723',
-        'red-transparent_30': 'rgba(232, 41, 51, 0.30)',
+        'red-base': '#8F141F',
+        'red-dark': '#6E0E17',
+        'red-transparent_30': 'rgba(143, 20, 31, 0.30)',
         
         // Feedback
         'success-base': '#069F62',
@@ -40,16 +40,16 @@ export default {
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
         primary: {
-          DEFAULT: '#EA1D2C',
+          DEFAULT: '#8F141F',
           foreground: '#FFFFFF',
-          dark: '#B81723',
+          dark: '#6E0E17',
         },
         secondary: {
           DEFAULT: '#EBEBEB',
           foreground: '#1F1818',
         },
         destructive: {
-          DEFAULT: '#B81723',
+          DEFAULT: '#8F141F',
           foreground: '#FFFFFF',
         },
         muted: {
@@ -57,8 +57,8 @@ export default {
           foreground: '#5C5656',
         },
         accent: {
-          DEFAULT: 'rgba(232, 41, 51, 0.10)',
-          foreground: '#EA1D2C',
+          DEFAULT: 'rgba(143, 20, 31, 0.10)',
+          foreground: '#8F141F',
         },
         card: {
           DEFAULT: '#FFFFFF',

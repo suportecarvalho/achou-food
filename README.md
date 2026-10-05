@@ -24,8 +24,8 @@ O projeto implementa com 100% de fidelidade os estilos e componentes fornecidos:
 
 ### 1. Cores
 - **Brand**:
-  - `red-base`: `#EA1D2C` (Cor primária e botões de destaque)
-  - `red-dark`: `#B81723` (Botão de remover e hover primário)
+  - `red-base`: `#8F141F` (Cor primária e botões de destaque)
+  - `red-dark`: `#6E0E17` (Hover primário e estados ativos)
   - `red-transparent_30`: `rgba(232, 41, 51, 0.30)` (Tons suaves e badges)
 - **Feedback**:
   - `success-base`: `#069F62`

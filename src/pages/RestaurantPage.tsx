@@ -399,7 +399,7 @@ export const RestaurantPage: React.FC = () => {
                   <path d="M210 170 C240 165 290 175 295 190 C270 205 230 195 210 170 Z" fill="#7CD0F5" />
                   <path d="M300 200 C325 210 340 230 335 245 C310 245 300 220 300 200 Z" fill="#7CD0F5" />
                   <path d="M0 80 L380 120 M80 0 L120 320 M0 220 L380 200" stroke="#FFFFFF" strokeWidth="8" />
-                  <path d="M80 80 Q140 120 190 170" stroke="#EA1D2C" strokeWidth="4" strokeDasharray="6 6" fill="none" />
+                  <path d="M80 80 Q140 120 190 170" stroke="#8F141F" strokeWidth="4" strokeDasharray="6 6" fill="none" />
                 </svg>
 
                 <div className="absolute inset-0 flex items-center justify-center pointer-events-none pb-12">

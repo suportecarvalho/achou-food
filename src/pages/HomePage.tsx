@@ -230,7 +230,7 @@ export const HomePage: React.FC = () => {
             className="w-full flex items-center gap-3 mt-1 text-left cursor-pointer group hover:bg-white/10 p-1.5 -ml-1.5 rounded-2xl transition-all active:scale-[0.98] focus:outline-none"
             title="Alterar endereço de entrega"
           >
-            <div className="w-10 h-10 rounded-xl bg-red-dark group-hover:bg-[#9B131D] flex items-center justify-center text-white flex-shrink-0 shadow-inner transition-colors">
+            <div className="w-10 h-10 rounded-xl bg-red-dark group-hover:bg-[#6E0E17] flex items-center justify-center text-white flex-shrink-0 shadow-inner transition-colors">
               <MapPin size={22} weight="fill" />
             </div>
 

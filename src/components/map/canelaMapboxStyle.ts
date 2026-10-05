@@ -500,7 +500,7 @@ export function createCanelaMapStyle(): Style {
         type: 'line',
         source: 'nav-route',
         paint: {
-          'line-color': '#EA1D2C',
+          'line-color': '#8F141F',
           'line-width': 8,
           'line-opacity': 0.2,
           'line-blur': 2,
@@ -515,7 +515,7 @@ export function createCanelaMapStyle(): Style {
           'line-join': 'round',
         },
         paint: {
-          'line-color': '#EA1D2C',
+          'line-color': '#8F141F',
           'line-width': 3.5,
           'line-dasharray': [2, 1.5],
         },

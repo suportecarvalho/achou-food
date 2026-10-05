@@ -58,16 +58,16 @@ export const AchouLogo: React.FC<AchouLogoProps> = ({
         xmlns="http://www.w3.org/2000/svg"
       >
         {/* Motion lines */}
-        <path d="M6 46 H22 M2 56 H18 M8 66 H20" stroke="#EA1D2C" strokeWidth="4" strokeLinecap="round" />
+        <path d="M6 46 H22 M2 56 H18 M8 66 H20" stroke="#8F141F" strokeWidth="4" strokeLinecap="round" />
         {/* Scooter Body & Wheels */}
-        <circle cx="38" cy="74" r="11" stroke="#EA1D2C" strokeWidth="4" fill="none" />
-        <circle cx="78" cy="74" r="11" stroke="#EA1D2C" strokeWidth="4" fill="none" />
-        <path d="M38 74 L52 74 L64 60 L78 74" stroke="#EA1D2C" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" />
-        <path d="M64 60 L70 38 L80 38" stroke="#EA1D2C" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" />
+        <circle cx="38" cy="74" r="11" stroke="#8F141F" strokeWidth="4" fill="none" />
+        <circle cx="78" cy="74" r="11" stroke="#8F141F" strokeWidth="4" fill="none" />
+        <path d="M38 74 L52 74 L64 60 L78 74" stroke="#8F141F" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M64 60 L70 38 L80 38" stroke="#8F141F" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" />
         {/* Cloche */}
-        <path d="M30 54 C30 38 42 26 56 26 C70 26 82 38 82 54 Z" fill="#EA1D2C" />
-        <circle cx="56" cy="22" r="4.5" fill="#EA1D2C" />
-        <rect x="25" y="54" width="62" height="4.5" rx="2" fill="#EA1D2C" />
+        <path d="M30 54 C30 38 42 26 56 26 C70 26 82 38 82 54 Z" fill="#8F141F" />
+        <circle cx="56" cy="22" r="4.5" fill="#8F141F" />
+        <rect x="25" y="54" width="62" height="4.5" rx="2" fill="#8F141F" />
       </svg>
     )
   }
@@ -82,16 +82,16 @@ export const AchouLogo: React.FC<AchouLogoProps> = ({
         xmlns="http://www.w3.org/2000/svg"
       >
         {/* Motion lines */}
-        <path d="M6 46 H22 M2 56 H18 M8 66 H20" stroke="#EA1D2C" strokeWidth="4" strokeLinecap="round" />
+        <path d="M6 46 H22 M2 56 H18 M8 66 H20" stroke="#8F141F" strokeWidth="4" strokeLinecap="round" />
         {/* Scooter Wheels & Body */}
-        <circle cx="38" cy="74" r="11" stroke="#EA1D2C" strokeWidth="4" fill="none" />
-        <circle cx="78" cy="74" r="11" stroke="#EA1D2C" strokeWidth="4" fill="none" />
-        <path d="M38 74 L52 74 L64 60 L78 74" stroke="#EA1D2C" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" />
-        <path d="M64 60 L70 38 L80 38" stroke="#EA1D2C" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" />
+        <circle cx="38" cy="74" r="11" stroke="#8F141F" strokeWidth="4" fill="none" />
+        <circle cx="78" cy="74" r="11" stroke="#8F141F" strokeWidth="4" fill="none" />
+        <path d="M38 74 L52 74 L64 60 L78 74" stroke="#8F141F" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M64 60 L70 38 L80 38" stroke="#8F141F" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" />
         {/* Cloche */}
-        <path d="M30 54 C30 38 42 26 56 26 C70 26 82 38 82 54 Z" fill="#EA1D2C" />
-        <circle cx="56" cy="22" r="4.5" fill="#EA1D2C" />
-        <rect x="25" y="54" width="62" height="4.5" rx="2" fill="#EA1D2C" />
+        <path d="M30 54 C30 38 42 26 56 26 C70 26 82 38 82 54 Z" fill="#8F141F" />
+        <circle cx="56" cy="22" r="4.5" fill="#8F141F" />
+        <rect x="25" y="54" width="62" height="4.5" rx="2" fill="#8F141F" />
       </svg>
       <span className={`font-bold tracking-tight text-red-base font-sans ${text} leading-none flex items-baseline gap-1`}>
         <span>Achou</span>

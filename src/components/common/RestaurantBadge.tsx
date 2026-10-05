@@ -84,7 +84,7 @@ export const RestaurantBadge: React.FC<RestaurantBadgeProps> = ({
     return (
       <div
         className={cn(
-          'flex-shrink-0 flex items-center justify-center bg-[#B81723] text-white shadow-sm select-none',
+          'flex-shrink-0 flex items-center justify-center bg-[#8F141F] text-white shadow-sm select-none',
           sizeClasses[size],
           className
         )}

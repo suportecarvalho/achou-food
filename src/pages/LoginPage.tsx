@@ -187,7 +187,7 @@ export const LoginPage: React.FC = () => {
               
               {/* Card Flutuante 1: Topo Direito -> "Encontre no mapa" */}
               <div className="absolute top-[8%] right-[2%] sm:right-[6%] z-20 animate-fadeIn bg-white rounded-2xl py-2.5 px-3.5 shadow-xl border border-gray-100/80 flex items-center gap-3 transition-transform hover:-translate-y-1 duration-200">
-                <div className="w-10 h-10 rounded-xl bg-[#F9ECEF] text-[#B81723] flex items-center justify-center flex-shrink-0">
+                <div className="w-10 h-10 rounded-xl bg-[#F9ECEF] text-[#8F141F] flex items-center justify-center flex-shrink-0">
                   <MapTrifold size={20} weight="duotone" />
                 </div>
                 <div className="text-left leading-tight">
@@ -198,7 +198,7 @@ export const LoginPage: React.FC = () => {
 
               {/* Card Flutuante 2: Meio Esquerdo -> "Peça direto do local" */}
               <div className="absolute top-[48%] left-[0%] sm:-left-[4%] z-20 animate-fadeIn bg-white rounded-2xl py-2.5 px-3.5 shadow-xl border border-gray-100/80 flex items-center gap-3 transition-transform hover:-translate-y-1 duration-200">
-                <div className="w-10 h-10 rounded-xl bg-[#F9ECEF] text-[#B81723] flex items-center justify-center flex-shrink-0">
+                <div className="w-10 h-10 rounded-xl bg-[#F9ECEF] text-[#8F141F] flex items-center justify-center flex-shrink-0">
                   <ForkKnife size={20} weight="duotone" />
                 </div>
                 <div className="text-left leading-tight">
@@ -209,7 +209,7 @@ export const LoginPage: React.FC = () => {
 
               {/* Card Flutuante 3: Base Direita -> "Economize sem taxas" */}
               <div className="absolute bottom-[10%] right-[6%] sm:right-[12%] z-20 animate-fadeIn bg-white rounded-2xl py-2.5 px-3.5 shadow-xl border border-gray-100/80 flex items-center gap-3 transition-transform hover:-translate-y-1 duration-200">
-                <div className="w-10 h-10 rounded-xl bg-[#F9ECEF] text-[#B81723] flex items-center justify-center flex-shrink-0">
+                <div className="w-10 h-10 rounded-xl bg-[#F9ECEF] text-[#8F141F] flex items-center justify-center flex-shrink-0">
                   <Tag size={20} weight="duotone" />
                 </div>
                 <div className="text-left leading-tight">

@@ -35,8 +35,8 @@ export const DesktopHomeHero: React.FC<DesktopHomeHeroProps> = ({
 }) => {
   return (
     <div className="space-y-6">
-      {/* Banner Principal com Gradiente Achou Food */}
-      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-[#A5131E] via-[#EA1D2C] to-[#FF4D5A] text-white p-8 lg:p-10 shadow-xl border border-red-400/20">
+      {/* Banner Principal com Gradiente Achou Food #8F141F */}
+      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-[#6E0E17] via-[#8F141F] to-[#B01A27] text-white p-8 lg:p-10 shadow-xl border border-white/10">
         {/* Elementos Decorativos de Fundo */}
         <div className="absolute -right-16 -bottom-16 w-80 h-80 rounded-full bg-white/10 blur-2xl pointer-events-none" />
         <div className="absolute right-12 top-6 w-32 h-32 rounded-full bg-white/5 blur-xl pointer-events-none" />

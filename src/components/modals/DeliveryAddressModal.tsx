@@ -197,7 +197,7 @@ export const DeliveryAddressModal: React.FC<DeliveryAddressModalProps> = ({
               {/* Sombra suave interna do pino */}
               <path
                 d="M14 0 C6.3 0 0 6.3 0 14 C0 24.5 14 38 14 38 C14 38 28 24.5 28 14 C28 6.3 21.7 0 14 0 Z"
-                fill="#EA1D2C"
+                fill="#8F141F"
                 className="filter drop-shadow-md"
               />
               {/* Brilho superior esquerdo do pino */}
