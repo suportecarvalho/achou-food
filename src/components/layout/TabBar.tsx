@@ -34,7 +34,7 @@ export const TabBar: React.FC<TabBarProps> = ({ className }) => {
   return (
     <nav
       className={cn(
-        'absolute bottom-6 left-1/2 -translate-x-1/2 z-50 transition-all duration-300',
+        'absolute bottom-6 left-1/2 -translate-x-1/2 z-50 transition-all duration-300 md:hidden',
         className
       )}
       aria-label="Navegação principal"

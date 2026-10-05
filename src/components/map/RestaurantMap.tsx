@@ -179,7 +179,13 @@ export const RestaurantMap: React.FC<RestaurantMapProps> = ({
       }
     })
 
+    const handleResize = () => {
+      map.resize()
+    }
+    window.addEventListener('resize', handleResize)
+
     return () => {
+      window.removeEventListener('resize', handleResize)
       // Limpeza dos marcadores estáticos e do mapa
       staticMarkersRef.current.forEach((m) => m.remove())
       staticMarkersRef.current = []

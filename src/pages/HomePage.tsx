@@ -6,12 +6,19 @@ import {
   WifiHigh,
   BatteryFull,
   CellSignalFull,
+  Funnel,
+  Sparkle,
 } from '@phosphor-icons/react'
 import { TabBar } from '@/components/layout/TabBar'
 import { ToggleList, ViewMode } from '@/components/ui/ToggleList'
 import { RestaurantBadge } from '@/components/common/RestaurantBadge'
 import { RestaurantMap } from '@/components/map/RestaurantMap'
 import { DeliveryAddressModal } from '@/components/modals/DeliveryAddressModal'
+import { DesktopNavbar } from '@/components/layout/DesktopNavbar'
+import { DesktopHomeHero } from '@/components/home/DesktopHomeHero'
+import { DesktopRestaurantCard } from '@/components/cards/DesktopRestaurantCard'
+import { DesktopMapSplitView } from '@/components/map/DesktopMapSplitView'
+import { DesktopFooter } from '@/components/layout/DesktopFooter'
 import { apiService } from '@/lib/supabase'
 import { Restaurant } from '@/types'
 
@@ -23,6 +30,7 @@ export const HomePage: React.FC = () => {
   const isMapRoute = location.pathname === '/map' || searchParams.get('view') === 'map'
   const [restaurants, setRestaurants] = useState<Restaurant[]>([])
   const [searchQuery, setSearchQuery] = useState<string>('')
+  const [selectedCategory, setSelectedCategory] = useState<string>('todos')
   const [viewMode, setViewMode] = useState<ViewMode>(isMapRoute ? 'map' : 'list')
   const [loading, setLoading] = useState(true)
 
@@ -53,27 +61,172 @@ export const HomePage: React.FC = () => {
     navigate(mode === 'map' ? '/map' : '/')
   }
 
+  // Filtro conjunto de Busca Textual e Categoria
   const filteredRestaurants = restaurants.filter((r) => {
+    // 1. Filtro de Categoria
+    if (selectedCategory !== 'todos') {
+      const cat = (r.categoryId || '').toLowerCase()
+      const name = r.name.toLowerCase()
+      const desc = (r.description || '').toLowerCase()
+
+      const matchCategory =
+        (selectedCategory === 'sobremesas' && (cat.includes('sobremesa') || cat.includes('doce') || name.includes('doce') || desc.includes('doce'))) ||
+        (selectedCategory === 'cafes' && (cat.includes('cafe') || cat.includes('padaria') || name.includes('cafe') || name.includes('bistrô'))) ||
+        (selectedCategory === 'hamburgueres' && (cat.includes('hamburguer') || cat.includes('lanche') || name.includes('hamburger'))) ||
+        (selectedCategory === 'refeicoes' && (cat.includes('refeicao') || cat.includes('almoco') || name.includes('sabor & arte') || name.includes('veg'))) ||
+        (selectedCategory === 'bebidas' && (cat.includes('bebida') || cat.includes('fruta') || name.includes('tropical'))) ||
+        cat.includes(selectedCategory)
+
+      if (!matchCategory) return false
+    }
+
+    // 2. Filtro de Busca Textual
     if (!searchQuery.trim()) return true
     const query = searchQuery.toLowerCase()
     return (
       r.name.toLowerCase().includes(query) ||
       r.address.toLowerCase().includes(query) ||
-      r.neighborhood.toLowerCase().includes(query)
+      r.neighborhood.toLowerCase().includes(query) ||
+      (r.description && r.description.toLowerCase().includes(query))
     )
   })
 
   return (
-    <div className="min-h-screen bg-gray-100 flex justify-center selection:bg-red-base/20 selection:text-red-base">
-      {/* Mobile App Container matching the Figma Screens */}
-      <div className="w-full max-w-[440px] min-h-screen bg-white sm:shadow-2xl sm:my-4 sm:rounded-[40px] overflow-hidden flex flex-col relative border-0 sm:border sm:border-gray-200/80">
-        
-        {/* ========================================================================= */}
-        {/* HEADER VERMELHO (Design Spec Home - List & Map) */}
-        {/* ========================================================================= */}
-        <header className="bg-red-base text-white pt-3 pb-8 px-6 relative select-none z-20">
-          {/* Status Bar simulation (9:41, icons) */}
-          <div className="flex items-center justify-between text-white text-[13px] font-semibold mb-4 px-1">
+    <div className="min-h-screen bg-gray-50 flex flex-col font-sans selection:bg-red-base/20 selection:text-red-base">
+      {/* ========================================================================= */}
+      {/* 1. VERSÃO DESKTOP (MD E SUPERIORES) - EXPERIÊNCIA WEB TOTALMENTE RESPONSIVA */}
+      {/* ========================================================================= */}
+      <div className="hidden md:flex flex-col min-h-screen w-full">
+        {/* Navbar Desktop Superior */}
+        <DesktopNavbar
+          searchQuery={searchQuery}
+          onSearchChange={setSearchQuery}
+          viewMode={viewMode}
+          onToggleView={handleToggleView}
+          currentAddress={currentAddress}
+          onOpenAddressModal={() => setIsAddressModalOpen(true)}
+          showViewToggle={true}
+        />
+
+        {/* MODO LISTA NO DESKTOP: GRID MODERNA DE MÚLTIPLAS COLUNAS */}
+        {viewMode === 'list' && (
+          <div className="flex-1 flex flex-col w-full">
+            <main className="max-w-7xl mx-auto px-6 lg:px-8 py-8 w-full flex-1 flex flex-col gap-8">
+              {/* Hero Banner com Gradiente e Categorias */}
+              <DesktopHomeHero
+                selectedCategory={selectedCategory}
+                onSelectCategory={setSelectedCategory}
+                totalRestaurants={filteredRestaurants.length}
+              />
+
+              {/* Barra de Status da Listagem e Controles */}
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-2 border-t border-gray-200/80">
+                <div>
+                  <div className="flex items-center gap-2.5">
+                    <h2 className="text-xl font-extrabold text-gray-900 tracking-tight">
+                      Restaurantes em Destaque
+                    </h2>
+                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-red-base/10 text-red-base">
+                      {filteredRestaurants.length} disponíveis
+                    </span>
+                  </div>
+                  <p className="text-sm text-gray-500 mt-0.5">
+                    Locais abertos com entrega em Canela - RS
+                  </p>
+                </div>
+
+                {/* Alternador Lista / Mapa visível também acima dos cards */}
+                <div className="flex items-center gap-3">
+                  {searchQuery && (
+                    <button
+                      type="button"
+                      onClick={() => setSearchQuery('')}
+                      className="text-xs font-semibold text-red-base hover:underline"
+                    >
+                      Limpar filtro de busca
+                    </button>
+                  )}
+                  <ToggleList value={viewMode} onChange={handleToggleView} />
+                </div>
+              </div>
+
+              {/* Grid Responsiva em Múltiplas Colunas (2 a 4 colunas) */}
+              {loading ? (
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 lg:gap-8">
+                  {[1, 2, 3, 4, 5, 6, 7, 8].map((n) => (
+                    <div
+                      key={n}
+                      className="bg-white rounded-3xl overflow-hidden border border-gray-100 shadow-sm animate-pulse"
+                    >
+                      <div className="h-48 bg-gray-200 w-full" />
+                      <div className="p-5 space-y-3">
+                        <div className="h-5 bg-gray-200 rounded w-2/3" />
+                        <div className="h-4 bg-gray-100 rounded w-full" />
+                        <div className="h-3 bg-gray-100 rounded w-1/2 pt-2" />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : filteredRestaurants.length === 0 ? (
+                <div className="py-20 text-center bg-white rounded-3xl border border-gray-200/80 p-8 shadow-xs">
+                  <div className="w-16 h-16 bg-red-base/10 text-red-base rounded-2xl flex items-center justify-center mx-auto mb-4">
+                    <MagnifyingGlass size={32} />
+                  </div>
+                  <h3 className="text-lg font-bold text-gray-800">
+                    Nenhum restaurante encontrado
+                  </h3>
+                  <p className="text-sm text-gray-500 max-w-md mx-auto mt-1">
+                    Não encontramos resultados para sua pesquisa ou categoria selecionada.
+                  </p>
+                  <div className="mt-5 flex items-center justify-center gap-3">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setSearchQuery('')
+                        setSelectedCategory('todos')
+                      }}
+                      className="px-5 py-2.5 bg-red-base text-white text-xs font-bold rounded-full hover:bg-red-dark transition-colors shadow-sm"
+                    >
+                      Limpar todos os filtros
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 lg:gap-8">
+                  {filteredRestaurants.map((restaurant) => (
+                    <DesktopRestaurantCard
+                      key={restaurant.id}
+                      restaurant={restaurant}
+                    />
+                  ))}
+                </div>
+              )}
+            </main>
+
+            {/* Rodapé Desktop */}
+            <DesktopFooter />
+          </div>
+        )}
+
+        {/* MODO MAPA NO DESKTOP: SPLIT VIEW MODERNA COM LISTA LATERAL E MAPA EM TELA CHEIA */}
+        {viewMode === 'map' && (
+          <DesktopMapSplitView
+            restaurants={filteredRestaurants}
+            searchQuery={searchQuery}
+            onSearchChange={setSearchQuery}
+            onSwitchToList={() => handleToggleView('list')}
+          />
+        )}
+      </div>
+
+      {/* ========================================================================= */}
+      {/* 2. VERSÃO MOBILE (DISPOSITIVOS MÓVEIS < MD) - DESIGN ESPECÍFICO MOBILE */}
+      {/* ========================================================================= */}
+      <div className="md:hidden w-full min-h-screen bg-white flex flex-col relative">
+        {/* Header Vermelho Nativo do App */}
+        <header className="bg-red-base text-white pt-3 pb-8 px-5 relative select-none z-20">
+          {/* Status Bar simulation exclusiva para mobile */}
+          <div className="flex items-center justify-between text-white text-[13px] font-semibold mb-3 px-1">
             <span>9:41</span>
             <div className="flex items-center gap-1.5 opacity-90">
               <CellSignalFull size={15} weight="fill" />
@@ -82,7 +235,7 @@ export const HomePage: React.FC = () => {
             </div>
           </div>
 
-          {/* Delivery Location Block - Clicável para abrir o modal de seleção de endereço */}
+          {/* Delivery Location Block - Clicável */}
           <button
             type="button"
             onClick={() => setIsAddressModalOpen(true)}
@@ -104,14 +257,11 @@ export const HomePage: React.FC = () => {
           </button>
         </header>
 
-        {/* ========================================================================= */}
-        {/* VIEW 1: HOME - LIST VIEW */}
-        {/* ========================================================================= */}
+        {/* MOBILE VIEW 1: HOME - LIST VIEW */}
         {viewMode === 'list' && (
           <main className="flex-1 bg-white -mt-3 rounded-t-[36px] px-5 pt-7 pb-28 relative z-10 shadow-sm flex flex-col">
-            {/* Search Bar + ToggleList Row com espaçamento respirável do topo */}
+            {/* Search Bar + ToggleList Row */}
             <div className="flex items-center gap-2.5">
-              {/* Search Input */}
               <div className="relative flex-1">
                 <MagnifyingGlass
                   size={18}
@@ -126,17 +276,14 @@ export const HomePage: React.FC = () => {
                 />
               </div>
 
-              {/* Toggle View Mode: List vs Map */}
               <ToggleList value={viewMode} onChange={handleToggleView} />
             </div>
 
             <div className="mt-5 flex-1 flex flex-col">
-              {/* Section Header: RESTAURANTES PERTO DE VOCÊ */}
               <h2 className="text-[12px] font-bold uppercase tracking-wider text-red-base select-none mb-1">
                 RESTAURANTES PERTO DE VOCÊ
               </h2>
 
-              {/* List of Restaurants */}
               {loading ? (
                 <div className="space-y-3 pt-3">
                   {[1, 2, 3, 4, 5].map((n) => (
@@ -162,7 +309,10 @@ export const HomePage: React.FC = () => {
                   </p>
                   <button
                     type="button"
-                    onClick={() => setSearchQuery('')}
+                    onClick={() => {
+                      setSearchQuery('')
+                      setSelectedCategory('todos')
+                    }}
                     className="mt-3 px-4 py-1.5 bg-red-base text-white text-label-xs font-semibold rounded-full hover:bg-red-dark transition-colors"
                   >
                     Limpar busca
@@ -176,14 +326,12 @@ export const HomePage: React.FC = () => {
                       to={`/restaurant/${restaurant.id}`}
                       className="group flex items-center gap-3.5 py-3 hover:bg-gray-50/80 -mx-2 px-2 rounded-2xl transition-colors"
                     >
-                      {/* Stylized Vector Badge */}
                       <RestaurantBadge
                         name={restaurant.name}
                         slug={restaurant.id}
                         size="md"
                       />
 
-                      {/* Info */}
                       <div className="flex-1 min-w-0">
                         <h3 className="text-title-md font-semibold text-gray-600 group-hover:text-red-base transition-colors truncate">
                           {restaurant.name}
@@ -200,14 +348,10 @@ export const HomePage: React.FC = () => {
           </main>
         )}
 
-        {/* ========================================================================= */}
-        {/* VIEW 2: HOME - MAP VIEW (Figma Spec idêntico) */}
-        {/* ========================================================================= */}
+        {/* MOBILE VIEW 2: HOME - MAP VIEW */}
         {viewMode === 'map' && (
           <main className="flex-1 bg-white -mt-3 rounded-t-[36px] relative z-10 shadow-sm overflow-hidden flex flex-col">
-            {/* Top Floating Search + Toggle Controls over the map com espaçamento top-6 */}
             <div className="absolute top-6 left-5 right-5 z-40 flex items-center gap-2.5">
-              {/* Search Input Floating */}
               <div className="relative flex-1">
                 <MagnifyingGlass
                   size={18}
@@ -222,29 +366,27 @@ export const HomePage: React.FC = () => {
                 />
               </div>
 
-              {/* Toggle View Mode: List vs Map */}
               <ToggleList value={viewMode} onChange={handleToggleView} />
             </div>
 
-            {/* Interactive Canela RS Map with Floating Restaurant Card and Pins */}
             <RestaurantMap restaurants={filteredRestaurants} />
           </main>
         )}
 
-        {/* Modal de Seleção de Endereço / Localização */}
-        <DeliveryAddressModal
-          isOpen={isAddressModalOpen}
-          onClose={() => setIsAddressModalOpen(false)}
-          currentAddress={currentAddress}
-          onSelectAddress={(newAddress) => {
-            setCurrentAddress(newAddress)
-            localStorage.setItem('achou_food_delivery_address', newAddress)
-          }}
-        />
-
-        {/* Floating Bottom TabBar with Home & Order */}
+        {/* TabBar Móvel Inferior (apenas mobile) */}
         <TabBar />
       </div>
+
+      {/* Modal de Seleção de Endereço / Localização (Compartilhado Mobile & Desktop) */}
+      <DeliveryAddressModal
+        isOpen={isAddressModalOpen}
+        onClose={() => setIsAddressModalOpen(false)}
+        currentAddress={currentAddress}
+        onSelectAddress={(newAddress) => {
+          setCurrentAddress(newAddress)
+          localStorage.setItem('achou_food_delivery_address', newAddress)
+        }}
+      />
     </div>
   )
 }
