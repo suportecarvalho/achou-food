@@ -5,9 +5,6 @@ import {
   PaperPlaneTilt,
   ForkKnife,
   Storefront,
-  WifiHigh,
-  BatteryFull,
-  CellSignalFull,
   ShoppingBag,
   Star,
   Clock,
@@ -357,19 +354,10 @@ export const RestaurantPage: React.FC = () => {
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/30 pointer-events-none" />
 
-          <div className="absolute top-3 left-6 right-6 flex items-center justify-between text-white text-[13px] font-semibold z-20">
-            <span>9:41</span>
-            <div className="flex items-center gap-1.5 opacity-90">
-              <CellSignalFull size={15} weight="fill" />
-              <WifiHigh size={15} weight="bold" />
-              <BatteryFull size={18} weight="fill" />
-            </div>
-          </div>
-
           <button
             type="button"
             onClick={() => navigate(-1)}
-            className="absolute top-11 left-5 z-20 w-9 h-9 rounded-full bg-white/90 backdrop-blur-md flex items-center justify-center text-gray-600 hover:text-red-base hover:bg-white shadow-md active:scale-95 transition-all"
+            className="absolute top-5 left-5 z-20 w-9 h-9 rounded-full bg-white/90 backdrop-blur-md flex items-center justify-center text-gray-600 hover:text-red-base hover:bg-white shadow-md active:scale-95 transition-all"
             aria-label="Voltar"
           >
             <ArrowLeft size={18} weight="bold" />

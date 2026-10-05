@@ -5,9 +5,6 @@ import {
   ClipboardText,
   Plus,
   Minus,
-  WifiHigh,
-  BatteryFull,
-  CellSignalFull,
   ShoppingBag,
   ForkKnife,
 } from '@phosphor-icons/react'
@@ -302,15 +299,7 @@ export const RestaurantMenuPage: React.FC = () => {
       {/* 2. VERSÃO MOBILE (DISPOSITIVOS MÓVEIS < MD) - DESIGN ESPECÍFICO MOBILE */}
       {/* ========================================================================= */}
       <div className="md:hidden w-full min-h-screen bg-white flex flex-col relative">
-        <header className="bg-[#F4F4F6] text-gray-600 pt-3 pb-6 px-5 relative select-none">
-          <div className="flex items-center justify-between text-gray-800 text-[13px] font-semibold mb-3 px-1">
-            <span>9:41</span>
-            <div className="flex items-center gap-1.5 opacity-90">
-              <CellSignalFull size={15} weight="fill" />
-              <WifiHigh size={15} weight="bold" />
-              <BatteryFull size={18} weight="fill" />
-            </div>
-          </div>
+        <header className="bg-[#F4F4F6] text-gray-600 pt-5 pb-6 px-5 relative select-none">
 
           <div className="flex items-center gap-3 mt-1">
             <button

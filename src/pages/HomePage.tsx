@@ -3,9 +3,6 @@ import { Link, useLocation, useNavigate, useSearchParams } from 'react-router-do
 import {
   MapPin,
   MagnifyingGlass,
-  WifiHigh,
-  BatteryFull,
-  CellSignalFull,
   Funnel,
   Sparkle,
 } from '@phosphor-icons/react'
@@ -223,17 +220,8 @@ export const HomePage: React.FC = () => {
       {/* 2. VERSÃO MOBILE (DISPOSITIVOS MÓVEIS < MD) - DESIGN ESPECÍFICO MOBILE */}
       {/* ========================================================================= */}
       <div className="md:hidden w-full min-h-screen bg-white flex flex-col relative">
-        {/* Header Vermelho Nativo do App */}
-        <header className="bg-red-base text-white pt-3 pb-8 px-5 relative select-none z-20">
-          {/* Status Bar simulation exclusiva para mobile */}
-          <div className="flex items-center justify-between text-white text-[13px] font-semibold mb-3 px-1">
-            <span>9:41</span>
-            <div className="flex items-center gap-1.5 opacity-90">
-              <CellSignalFull size={15} weight="fill" />
-              <WifiHigh size={15} weight="bold" />
-              <BatteryFull size={18} weight="fill" />
-            </div>
-          </div>
+        {/* Header Vermelho do App */}
+        <header className="bg-red-base text-white pt-4 pb-8 px-5 relative select-none z-20">
 
           {/* Delivery Location Block - Clicável */}
           <button

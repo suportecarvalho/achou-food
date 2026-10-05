@@ -6,9 +6,6 @@ import {
   Plus,
   Trash,
   Storefront,
-  WifiHigh,
-  BatteryFull,
-  CellSignalFull,
   MapPin,
   CheckCircle,
   Money,
@@ -343,15 +340,7 @@ export const CartPage: React.FC = () => {
       {/* 2. VERSÃO MOBILE (DISPOSITIVOS MÓVEIS < MD) - DESIGN ESPECÍFICO MOBILE */}
       {/* ========================================================================= */}
       <div className="md:hidden w-full min-h-screen bg-white flex flex-col relative">
-        <header className="bg-[#ECECEE] text-gray-600 pt-3 pb-7 px-5 relative select-none z-20">
-          <div className="flex items-center justify-between text-gray-800 text-[13px] font-semibold mb-3 px-1">
-            <span>9:41</span>
-            <div className="flex items-center gap-1.5 opacity-90">
-              <CellSignalFull size={15} weight="fill" />
-              <WifiHigh size={15} weight="bold" />
-              <BatteryFull size={18} weight="fill" />
-            </div>
-          </div>
+        <header className="bg-[#ECECEE] text-gray-600 pt-5 pb-7 px-5 relative select-none z-20">
 
           <div className="flex items-center gap-3 mt-1">
             <div className="w-11 h-11 rounded-2xl bg-white border border-gray-200/80 flex items-center justify-center shadow-sm flex-shrink-0">
