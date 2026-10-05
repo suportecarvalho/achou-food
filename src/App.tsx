@@ -9,6 +9,7 @@ import { CartPage } from '@/pages/CartPage'
 import { OrdersPage } from '@/pages/OrdersPage'
 import { FavoritesPage } from '@/pages/FavoritesPage'
 import { LoginPage } from '@/pages/LoginPage'
+import { AdminLayout } from '@/pages/admin/AdminLayout'
 
 export function App() {
   return (
@@ -26,6 +27,8 @@ export function App() {
               <Route path="/favorites" element={<FavoritesPage />} />
               <Route path="/login" element={<LoginPage />} />
               <Route path="/admin/login" element={<LoginPage />} />
+              <Route path="/admin" element={<AdminLayout />} />
+              <Route path="/admin/*" element={<AdminLayout />} />
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
           </div>

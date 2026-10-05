@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import {
   EnvelopeSimple,
@@ -9,9 +9,18 @@ import {
   ForkKnife,
   MapTrifold,
   Tag,
+  ShieldCheck,
 } from '@phosphor-icons/react'
 import { toast } from 'sonner'
 import { supabase, isSupabaseConfigured } from '@/lib/supabase'
+
+export const ADMIN_EMAILS = ['contatostunburger@gmail.com', 'adm@achoufood.com.br']
+
+export const isAdminEmail = (emailAddress?: string | null): boolean => {
+  if (!emailAddress) return false
+  const clean = emailAddress.trim().toLowerCase()
+  return ADMIN_EMAILS.includes(clean) || clean.startsWith('admin@')
+}
 
 export const LoginPage: React.FC = () => {
   const navigate = useNavigate()
@@ -25,6 +34,21 @@ export const LoginPage: React.FC = () => {
   const [registerName, setRegisterName] = useState('')
   const [registerRole, setRegisterRole] = useState<'manager' | 'customer'>('manager')
 
+  // Se já estiver logado como admin, redireciona diretamente para /admin
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem('achou_food_user')
+      if (stored) {
+        const user = JSON.parse(stored)
+        if (isAdminEmail(user?.email) || user?.role === 'admin') {
+          navigate('/admin', { replace: true })
+        }
+      }
+    } catch {
+      // ignore
+    }
+  }, [navigate])
+
   const handleLoginSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!email.trim() || !password.trim()) {
@@ -33,6 +57,7 @@ export const LoginPage: React.FC = () => {
     }
 
     setIsLoading(true)
+    const isAdmin = isAdminEmail(email)
 
     if (isSupabaseConfigured && supabase) {
       try {
@@ -53,24 +78,53 @@ export const LoginPage: React.FC = () => {
           return
         }
 
-        toast.success('Login realizado com sucesso via Supabase!')
+        const userIsAdmin = isAdmin || isAdminEmail(data.user.email)
+        toast.success(
+          userIsAdmin
+            ? 'Bem-vindo ao Painel Administrativo do Achou Food!'
+            : 'Login realizado com sucesso!'
+        )
         localStorage.setItem(
           'achou_food_user',
-          JSON.stringify({ email: data.user.email, id: data.user.id, role: 'admin' })
+          JSON.stringify({
+            email: data.user.email,
+            id: data.user.id,
+            role: userIsAdmin ? 'admin' : 'customer',
+          })
         )
-        navigate('/')
+
+        if (userIsAdmin) {
+          navigate('/admin')
+        } else {
+          navigate('/')
+        }
         return
       } catch (err: any) {
         console.warn('Erro ao conectar ao Supabase Auth:', err)
       }
     }
 
-    // Modo local / contingência
+    // Modo local / contingência (login imediato)
     setTimeout(() => {
       setIsLoading(false)
-      toast.success('Login realizado com sucesso!')
-      localStorage.setItem('achou_food_user', JSON.stringify({ email, role: 'admin' }))
-      navigate('/')
+      toast.success(
+        isAdmin
+          ? 'Bem-vindo ao Painel Administrativo do Achou Food!'
+          : 'Login realizado com sucesso!'
+      )
+      localStorage.setItem(
+        'achou_food_user',
+        JSON.stringify({
+          email: email.trim(),
+          role: isAdmin ? 'admin' : 'customer',
+        })
+      )
+
+      if (isAdmin) {
+        navigate('/admin')
+      } else {
+        navigate('/')
+      }
     }, 600)
   }
 
@@ -252,12 +306,26 @@ export const LoginPage: React.FC = () => {
                 <form onSubmit={handleLoginSubmit} autoComplete="off" className="space-y-6">
                   {/* Campo E-MAIL */}
                   <div>
-                    <label
-                      htmlFor="login-email"
-                      className="block text-[11px] font-bold tracking-wider uppercase text-[#8C7E77] mb-2"
-                    >
-                      E-MAIL
-                    </label>
+                    <div className="flex items-center justify-between mb-2">
+                      <label
+                        htmlFor="login-email"
+                        className="block text-[11px] font-bold tracking-wider uppercase text-[#8C7E77]"
+                      >
+                        E-MAIL
+                      </label>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setEmail('contatostunburger@gmail.com')
+                          setPassword('123456')
+                        }}
+                        className="text-[10px] font-bold text-red-base hover:underline flex items-center gap-1 cursor-pointer bg-red-50/80 px-2 py-0.5 rounded-full border border-red-200/60"
+                        title="Preencher login do Administrador"
+                      >
+                        <ShieldCheck size={12} weight="bold" />
+                        <span>Preencher Admin</span>
+                      </button>
+                    </div>
                     <div className="flex items-center gap-3 pb-2.5 border-b border-[#D8D0C5] focus-within:border-[#8F141F] transition-colors">
                       <EnvelopeSimple size={18} className="text-[#8C7E77] flex-shrink-0" />
                       <input
