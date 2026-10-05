@@ -219,7 +219,7 @@ export const HomePage: React.FC = () => {
       {/* ========================================================================= */}
       {/* 2. VERSÃO MOBILE (DISPOSITIVOS MÓVEIS < MD) - DESIGN ESPECÍFICO MOBILE */}
       {/* ========================================================================= */}
-      <div className="md:hidden w-full min-h-screen bg-white flex flex-col relative">
+      <div className={`md:hidden w-full bg-white relative ${viewMode === 'map' ? 'min-h-screen flex flex-col' : ''}`}>
         {/* Header Vermelho do App */}
         <header className="bg-red-base text-white pt-4 pb-8 px-5 relative select-none z-20">
 
@@ -247,7 +247,7 @@ export const HomePage: React.FC = () => {
 
         {/* MOBILE VIEW 1: HOME - LIST VIEW */}
         {viewMode === 'list' && (
-          <main className="flex-1 bg-white -mt-3 rounded-t-[36px] px-5 pt-7 pb-28 relative z-10 shadow-sm flex flex-col">
+          <main className="bg-white -mt-3 rounded-t-[36px] px-5 pt-7 pb-14 relative z-10 shadow-sm flex flex-col">
             {/* Search Bar + ToggleList Row */}
             <div className="flex items-center gap-2.5">
               <div className="relative flex-1">
@@ -267,7 +267,7 @@ export const HomePage: React.FC = () => {
               <ToggleList value={viewMode} onChange={handleToggleView} />
             </div>
 
-            <div className="mt-5 flex-1 flex flex-col">
+            <div className="mt-5 flex flex-col">
               <h2 className="text-[12px] font-bold uppercase tracking-wider text-red-base select-none mb-1">
                 RESTAURANTES PERTO DE VOCÊ
               </h2>
