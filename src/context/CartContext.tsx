@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react'
 import { CartItem, MenuItem, Restaurant } from '@/types'
+import { mockRestaurants, mockMenuItems } from '@/data/mockData'
 
 interface CartContextType {
   items: CartItem[]
@@ -18,21 +19,32 @@ interface CartContextType {
 const CartContext = createContext<CartContextType | undefined>(undefined)
 
 export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  // Pre-seed cart with items from the official Figma screen if not modified yet
+  const defaultRestaurant = mockRestaurants.find((r) => r.id === 'rest-doce-aroma') || mockRestaurants[0]
+  const defaultDoceAromaItems = mockMenuItems['rest-doce-aroma'] || []
+  const defaultRedVelvet = defaultDoceAromaItems.find((m) => m.name.toLowerCase().includes('red velvet'))
+  const defaultExpresso = defaultDoceAromaItems.find((m) => m.name.toLowerCase().includes('expresso'))
+
+  const initialSeedItems: CartItem[] = (defaultRestaurant && defaultRedVelvet && defaultExpresso) ? [
+    { menuItem: defaultRedVelvet, restaurant: defaultRestaurant, quantity: 1 },
+    { menuItem: defaultExpresso, restaurant: defaultRestaurant, quantity: 2 },
+  ] : []
+
   const [items, setItems] = useState<CartItem[]>(() => {
     try {
       const stored = localStorage.getItem('achou_food_cart')
-      return stored ? JSON.parse(stored) : []
+      return stored ? JSON.parse(stored) : initialSeedItems
     } catch {
-      return []
+      return initialSeedItems
     }
   })
 
   const [restaurant, setRestaurant] = useState<Restaurant | null>(() => {
     try {
       const stored = localStorage.getItem('achou_food_cart_restaurant')
-      return stored ? JSON.parse(stored) : null
+      return stored ? JSON.parse(stored) : defaultRestaurant
     } catch {
-      return null
+      return defaultRestaurant
     }
   })
 
@@ -107,7 +119,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     0
   )
   const deliveryFee = restaurant ? restaurant.deliveryFee : 0
-  const total = subtotal > 0 ? subtotal + deliveryFee : 0
+  const total = subtotal > 0 ? subtotal : 0
 
   return (
     <CartContext.Provider

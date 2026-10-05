@@ -24,14 +24,15 @@ export const apiService = {
         const { data, error } = await supabase
           .from('categories')
           .select('*')
-          .order('sort_order', { ascending: true })
         if (!error && data && data.length > 0) {
-          return data.map((item: any) => ({
-            id: item.id,
-            name: item.name,
-            icon: item.icon,
-            sortOrder: item.sort_order,
-          }))
+          return data
+            .map((item: any) => ({
+              id: item.id,
+              name: item.name,
+              icon: item.icon || 'ForkKnife',
+              sortOrder: item.display_order ?? item.sort_order ?? 0,
+            }))
+            .sort((a: any, b: any) => a.sortOrder - b.sortOrder)
         }
       } catch (e) {
         console.warn('Supabase fetch categories fallback to mock:', e)

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { MapPin, MagnifyingGlass, ShoppingBag, Heart, SquaresFour } from '@phosphor-icons/react'
+import { MapPin, MagnifyingGlass, ShoppingBag, Heart } from '@phosphor-icons/react'
 import { AchouLogo } from '@/components/common/AchouLogo'
 import { useCart } from '@/context/CartContext'
 
@@ -48,15 +48,6 @@ export const Header: React.FC<HeaderProps> = ({
 
           {/* Right Action Icons */}
           <div className="flex items-center gap-2">
-            {/* Design System Showcase Link */}
-            <Link
-              to="/components"
-              className="flex items-center gap-1.5 px-3 py-1.5 text-label-xs font-semibold text-gray-500 hover:text-red-base hover:bg-red-50 rounded-full transition-colors border border-gray-200"
-              title="Design System & Componentes"
-            >
-              <SquaresFour size={16} weight="bold" className="text-red-base" />
-              <span className="hidden sm:inline">Design System</span>
-            </Link>
 
             {/* Favorites Icon */}
             <Link

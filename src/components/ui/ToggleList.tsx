@@ -18,7 +18,7 @@ export const ToggleList: React.FC<ToggleListProps> = ({
   return (
     <div
       className={cn(
-        'inline-flex items-center p-1 bg-gray-200/90 rounded-full border border-gray-300/40 shadow-inner',
+        'inline-flex items-center p-1 bg-[#FAFAFA] rounded-full border border-gray-200 shadow-sm gap-0.5',
         className
       )}
       role="group"
@@ -31,7 +31,7 @@ export const ToggleList: React.FC<ToggleListProps> = ({
         className={cn(
           'flex items-center justify-center w-8 h-8 rounded-full transition-all duration-200',
           value === 'list'
-            ? 'bg-white text-red-base shadow-sm font-semibold'
+            ? 'bg-white text-red-base shadow-sm border border-red-100 font-semibold'
             : 'text-gray-400 hover:text-gray-600'
         )}
         title="Visualização em Lista"
@@ -46,7 +46,7 @@ export const ToggleList: React.FC<ToggleListProps> = ({
         className={cn(
           'flex items-center justify-center w-8 h-8 rounded-full transition-all duration-200',
           value === 'map'
-            ? 'bg-white text-red-base shadow-sm font-semibold'
+            ? 'bg-white text-red-base shadow-sm border border-red-100 font-semibold'
             : 'text-gray-400 hover:text-gray-600'
         )}
         title="Visualização no Mapa"

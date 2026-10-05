@@ -1,8 +1,7 @@
 import React from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { Storefront, ClipboardText, Heart, ShoppingBag } from '@phosphor-icons/react'
+import { Storefront, Receipt } from '@phosphor-icons/react'
 import { cn } from '@/lib/utils'
-import { useCart } from '@/context/CartContext'
 
 interface TabBarProps {
   className?: string
@@ -10,7 +9,6 @@ interface TabBarProps {
 
 export const TabBar: React.FC<TabBarProps> = ({ className }) => {
   const location = useLocation()
-  const { totalCount } = useCart()
 
   const navItems = [
     {
@@ -23,37 +21,25 @@ export const TabBar: React.FC<TabBarProps> = ({ className }) => {
       id: 'orders',
       label: 'Order',
       path: '/orders',
-      icon: ClipboardText,
-    },
-    {
-      id: 'favorites',
-      label: 'Favoritos',
-      path: '/favorites',
-      icon: Heart,
-    },
-    {
-      id: 'cart',
-      label: 'Sacola',
-      path: '/cart',
-      icon: ShoppingBag,
-      badge: totalCount > 0 ? totalCount : undefined,
+      icon: Receipt,
+      hasDot: true,
     },
   ]
 
   const isActive = (path: string) => {
     if (path === '/') return location.pathname === '/'
-    return location.pathname.startsWith(path)
+    return location.pathname.startsWith(path) || (path === '/orders' && location.pathname === '/cart')
   }
 
   return (
     <nav
       className={cn(
-        'fixed bottom-5 left-1/2 -translate-x-1/2 z-50 transition-all duration-300',
+        'absolute bottom-6 left-1/2 -translate-x-1/2 z-50 transition-all duration-300',
         className
       )}
       aria-label="Navegação principal"
     >
-      <div className="flex items-center gap-1.5 px-3 py-2 bg-white/95 backdrop-blur-md rounded-full shadow-tab-bar border border-gray-200/90">
+      <div className="flex items-center gap-2 px-3 py-1.5 bg-white/95 backdrop-blur-md rounded-full shadow-tab-bar border border-gray-200/80">
         {navItems.map((item) => {
           const active = isActive(item.path)
           const Icon = item.icon
@@ -65,7 +51,7 @@ export const TabBar: React.FC<TabBarProps> = ({ className }) => {
               className={cn(
                 'relative flex items-center justify-center w-11 h-11 rounded-full transition-all duration-200 group select-none',
                 active
-                  ? 'bg-gray-100 text-red-base shadow-sm'
+                  ? 'bg-gray-100/90 text-red-base shadow-sm'
                   : 'text-gray-400 hover:text-gray-600 hover:bg-gray-100/60'
               )}
               title={item.label}
@@ -77,14 +63,12 @@ export const TabBar: React.FC<TabBarProps> = ({ className }) => {
                 weight={active ? 'fill' : 'regular'}
                 className={cn(
                   'transition-transform duration-200 group-hover:scale-110',
-                  active ? 'text-red-base' : 'text-gray-400'
+                  active ? 'text-red-base' : 'text-gray-500'
                 )}
               />
 
-              {item.badge !== undefined && (
-                <span className="absolute -top-1 -right-1 flex items-center justify-center min-w-5 h-5 px-1 bg-red-base text-white text-label-2xs font-bold rounded-full border-2 border-white shadow-sm animate-pulse">
-                  {item.badge}
-                </span>
+              {item.hasDot && (
+                <span className="absolute top-2.5 right-2.5 w-2 h-2 bg-red-base rounded-full ring-2 ring-white" />
               )}
             </Link>
           )
@@ -93,3 +77,4 @@ export const TabBar: React.FC<TabBarProps> = ({ className }) => {
     </nav>
   )
 }
+
